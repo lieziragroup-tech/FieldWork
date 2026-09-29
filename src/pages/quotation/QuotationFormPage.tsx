@@ -1407,6 +1407,7 @@ export function QuotationFormPage() {
     const { user } = useAuthStore();
 
     const [step, setStep] = useState(0);
+    const [knownCustomers, setKnownCustomers] = useState<KnownCustomer[]>([]);
 
     // Load known customers for autocomplete
     useEffect(() => {
@@ -1447,7 +1448,6 @@ export function QuotationFormPage() {
     const [kepadaAlamat, setKepadaAlamat] = useState<string[]>([""]);
     const [kepadaUp, setKepadaUp] = useState("");
     const [kepadaWa, setKepadaWa] = useState("");
-    const [knownCustomers, setKnownCustomers] = useState<KnownCustomer[]>([]);
 
     const [items, setItems] = useState<QuotationItem[]>([{ desc: "", qty: 1, unit: "m2", harga: 0 }]);
     const [biayaTambahan, setBiayaTambahan] = useState<BiayaTambahan[]>([]);

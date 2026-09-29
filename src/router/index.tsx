@@ -8,7 +8,7 @@ import { LoginPage } from "../pages/auth/LoginPage";
 import { UnauthorizedPage } from "../pages/auth/UnauthorizedPage";
 import { SignupPage } from "../pages/auth/SignupPage";
 
-// Pages — regular
+// Pages — regular & ERP
 import { DashboardPage } from "../pages/dashboard/DashboardPage";
 import { QuotationPage } from "../pages/quotation/QuotationPage";
 import { QuotationFormPage } from "../pages/quotation/QuotationFormPage";
@@ -16,7 +16,6 @@ import { QuotationEditPage } from "../pages/quotation/QuotationEditPage";
 import { NomorSuratLogPage } from "../pages/nomor-surat/NomorSuratLogPage";
 import { TeamPage } from "../pages/team/TeamPage";
 import { ProfilePage } from "../pages/profile/ProfilePage";
-import { ComingSoonPage } from "../pages/ComingSoonPage";
 import { CashflowPage } from "../pages/cashflow/CashflowPage";
 import { PerformaPage } from "../pages/performance/PerformaPage";
 import { CustomersPage } from "../pages/customers/CustomersPage";
@@ -28,8 +27,9 @@ import { TrackingPage } from "../pages/tracking/TrackingPage";
 import { CompaniesPage } from "../pages/super-admin/CompaniesPage";
 import { CompanyUsersPage } from "../pages/super-admin/CompanyUsersPage";
 
-import { FieldLayout } from "../pages/field/FieldLayout";
+// Pages — FieldWork
 import { FieldDashboardPage } from "../pages/field/FieldDashboardPage";
+import { FieldJobsPage } from "../pages/field/FieldJobsPage";
 import { ARMeasureTool } from "../pages/field/ARMeasureTool";
 
 export const router = createBrowserRouter([
@@ -74,15 +74,41 @@ export const router = createBrowserRouter([
         ],
     },
 
-    // ── Regular app routes ─────────────────────────────────────────────────────
+    // ── Regular App & FieldWork Unified Routes ─────────────────────────────────
     {
         path: "/",
         element: <AppLayout />,
         children: [
             {
                 index: true,
-                element: <Navigate to="/dashboard" replace />,
+                element: <Navigate to="/field/dashboard" replace />,
             },
+            // FieldWork Operational Modules
+            {
+                path: "field/dashboard",
+                element: (
+                    <RoleGuard allowedRoles={["administrator", "admin_ops", "marketing", "teknisi"]}>
+                        <FieldDashboardPage />
+                    </RoleGuard>
+                ),
+            },
+            {
+                path: "field/jobs",
+                element: (
+                    <RoleGuard allowedRoles={["administrator", "admin_ops", "marketing", "teknisi"]}>
+                        <FieldJobsPage />
+                    </RoleGuard>
+                ),
+            },
+            {
+                path: "field/ar-measure",
+                element: (
+                    <RoleGuard allowedRoles={["administrator", "admin_ops", "marketing", "teknisi"]}>
+                        <ARMeasureTool />
+                    </RoleGuard>
+                ),
+            },
+            // ERP Backoffice Modules
             {
                 path: "dashboard",
                 element: (
@@ -189,25 +215,4 @@ export const router = createBrowserRouter([
             },
         ],
     },
-    {
-        path: "/field",
-        element: (
-            <RoleGuard allowedRoles={["teknisi", "administrator", "super_admin"]}>
-                <FieldLayout />
-            </RoleGuard>
-        ),
-        children: [
-            { path: "dashboard", element: <FieldDashboardPage /> },
-            { path: "jobs", element: <div className="p-4">Tugas (Work Orders)</div> },
-            { path: "history", element: <div className="p-4">Riwayat Pengerjaan</div> },
-        ]
-    },
-    {
-        path: "/field/ar-measure",
-        element: (
-            <RoleGuard allowedRoles={["teknisi", "administrator", "super_admin"]}>
-                <ARMeasureTool />
-            </RoleGuard>
-        )
-    }
 ]);

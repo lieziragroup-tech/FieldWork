@@ -1,0 +1,8 @@
+{
+  "name": "FIELDWORK — Field Operations & Pest Control ERP",
+  "description": "Field Work Documentation, Attendance, Survey & Integrated Pest Control ERP System",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
