@@ -1,8 +1,12 @@
 {
-  "name": "FIELDWORK — Field Operations & Pest Control ERP",
-  "description": "Field Work Documentation, Attendance, Survey & Integrated Pest Control ERP System",
-  "permissions": [],
-  "capabilities": [
+  "name": "Fieldwork App",
+  "description": "Field Work Documentation, Attendance & Anomaly Monitoring System",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
   ]
 }
